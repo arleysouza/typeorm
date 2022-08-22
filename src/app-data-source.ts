@@ -1,4 +1,3 @@
-import "reflect-metadata"
 import { DataSource } from "typeorm"
 import * as dotenv from 'dotenv'
 dotenv.config()
@@ -7,9 +6,9 @@ dotenv.config()
 export const AppDataSource = new DataSource({
     url: process.env.BD_URL,
     type: "postgres",
-    synchronize: true, // indicates if database schema should be auto created on every application launch
-    logging: false, // if set to true then query and error logging will be enabled
-    entities: ["src/entity/*.ts"], //Each entity must be registered in your data source options
+    synchronize: true, // true indica que o schema do BD será criado a cada vez que a aplicação inicializar
+    logging: false, // true indicq que as consultas e erros serão exibidas no terminal
+    entities: ["src/entity/*.ts"], // entidades que serão convertidas em tabelas
     migrations: [],
     subscribers: [],
     maxQueryExecutionTime: 2000 // 2 seg.
@@ -19,8 +18,8 @@ export const AppDataSource = new DataSource({
 AppDataSource
     .initialize()
     .then(() => {
-        console.log("Data Source has been initialized!")
+        console.log("Data Source inicializado!")
     })
-    .catch((err) => {
-        console.error("Error during Data Source initialization:", err)
+    .catch((e) => {
+        console.error("Erro na inicialização do Data Source:", e)
     })
